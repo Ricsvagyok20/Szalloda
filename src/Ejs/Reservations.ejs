@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservations</title>
+    <link rel="stylesheet" href="../Css/General.css">
+    <link rel="icon" href="../Multimedia/logo.png" type="image/icon">
+</head>
+<body>
+<div class="General">
+    <div class="menu">
+        <h1 class="focim"><strong>RR Hotel</strong></h1>
+        <nav>
+            <div id="menusor">
+                <ul class="menulista">
+                    <li class="menuitem"><a href="/Main">Home</a></li>
+                    <li class="menuitem"><a href="/Programs">Programs</a></li>
+                    <li class="menuitem"><a href="/Reservations">Reservations</a></li>
+                    <li class="menuitem"><a href="/Profile">Profile</a></li>
+                </ul>
+            </div>
+        </nav>
+        <br/>
+    </div>
+    <div class="General">
+        <h2>Here you can see all of our current reservations for the time being</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>RoomNumber</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Online</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+            if(reservations.length > 0) {
+            for(var l = 0; l < reservations.length; l++){
+            %>
+            <tr>
+                <td><%=reservations[l]["roomNumber"]%></td>
+                <td><%=reservations[l]["start"]%></td>
+                <td><%=reservations[l]["end"]%></td>
+                <td><%=reservations[l]["online"]%></td>
+            </tr>
+            <%}
+            }else{ %>
+                <tr>
+                    <td colspan="4">No Data Found</td>
+                </tr>
+            <%} %>
+            </tbody>
+        </table>
+        <h2>Here you can see the amount of rooms we have of each type</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>RoomType</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+            if(roomamounts.length > 0) {
+            for(var i = 0; i < roomamounts.length; i++){
+            %>
+            <tr>
+                <td><%=roomamounts[i]["type"]%></td>
+                <td><%=roomamounts[i]["amount"]%></td>
+            </tr>
+            <%}
+            }else{ %>
+                <tr>
+                    <td colspan="2">No Data Found</td>
+                </tr>
+            <%} %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer>
+    <em>For any business purposes please contact us at: rrhotel@gmail.rr</em>
+</footer>
+</body>
+</html>

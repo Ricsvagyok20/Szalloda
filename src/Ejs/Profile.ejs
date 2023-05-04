@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link rel="stylesheet" href="../Css/General.css">
+    <link rel="icon" href="../Multimedia/logo.png" type="image/icon">
+</head>
+<body>
+<div class="General">
+    <div class="menu">
+        <h1 class="focim"><strong>RR Hotel</strong></h1>
+        <nav>
+            <div id="menusor">
+                <ul class="menulista">
+                    <li class="menuitem"><a href="/Main">Home</a></li>
+                    <li class="menuitem"><a href="/Programs">Programs</a></li>
+                    <li class="menuitem"><a href="/Reservations">Reservations</a></li>
+                    <li class="menuitem"><a href="/Profile">Profile</a></li>
+                </ul>
+            </div>
+        </nav>
+        <form action="/logout" method="post">
+            <input type="submit" name="logout" value="Logout">
+        </form>
+        <br/>
+    </div>
+    <div class="General">
+        <%
+            if(occupant !== undefined){
+        %>
+        <h1>Your informations</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>RoomNumber</th>
+                        <th>Start</th>
+                        <th>End</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%=occupant["ID"]%></td>
+                        <td><%=occupant["lastname"]%></td>
+                        <td><%=occupant["firstname"]%></td>
+                        <td><%=occupant["email"]%></td>
+                        <td><%=occupant["password"]%></td>
+                        <td><%=occupant["roomNumber"]%></td>
+                        <td><%=occupant["start"]%></td>
+                        <td><%=occupant["end"]%></td>
+                    </tr>
+                </tbody>
+            </table>
+        <% }%>
+        <h1>Programs available until the end of your stay</h1>
+        <%
+        if(available !== undefined){
+        %>
+            <table>
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>From</th>
+                    <th>Until</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                if(available.length > 0) {
+                for(var v = 0; v < available.length; v++){
+                %>
+                <tr>
+                    <td><%=available[v]["type"]%></td>
+                    <td><%=available[v]["from"]%></td>
+                    <td><%=available[v]["until"]%></td>
+                </tr>
+                <%}
+                }else{ %>
+                    <tr>
+                        <td colspan="3">No Data Found</td>
+                    </tr>
+                <%} %>
+                </tbody>
+            </table>
+        <% }%>
+        <%
+        if(guests !== undefined){
+        %>
+        <h1>Guests table</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Lastname</th>
+                <th>Firstname</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>RoomNumber</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%
+                if(guests.length > 0) {
+                    for(var j = 0; j < guests.length; j++){
+                %>
+                <tr>
+                    <td><%=guests[j]["ID"]%></td>
+                    <td><%=guests[j]["lastname"]%></td>
+                    <td><%=guests[j]["firstname"]%></td>
+                    <td><%=guests[j]["email"]%></td>
+                    <td><%=guests[j]["password"]%></td>
+                    <td><%=guests[j]["roomNumber"]%></td>
+                    <td><%=guests[j]["start"]%></td>
+                    <td><%=guests[j]["end"]%></td>
+                    <td><form action="/deleteGuest" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delID" value=<%=guests[j]["ID"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                    }else{ %>
+                <tr>
+                    <td colspan="9">No Data Found</td>
+                </tr>
+                <%} %>
+            </tbody>
+        </table>
+            <h2>Create Guest</h2>
+            <form action="/createGuest" method="post">
+                <label for="ID">ID</label>
+                <input type="number" name="ID" placeholder="ID" id="ID" required>
+                <label for="lastname">Last name</label>
+                <input type="text" name="lastname" placeholder="Last name" id="lastname" required>
+                <label for="firstname">First name</label>
+                <input type="text" name="firstname" placeholder="First name" id="firstname" required>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="E-mail" id="email" required>
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <label for="roomNumber">Room Number</label>
+                <input type="number" name="roomNumber" placeholder="Room number" id="roomNumber" required>
+                <label for="start">Start</label>
+                <input type="date" name="start" placeholder="Start date" id="start" required>
+                <label for="end">End</label>
+                <input type="date" name="end" placeholder="End date" id="end" required>
+                <input type="submit" value="Create Guest">
+            </form>
+            <br>
+            <h2>Update Guest</h2>
+            <form action="/updateGuest" method="post">
+                <label for="lastname">Last name</label>
+                <input type="text" name="lastname" placeholder="Last name" id="lastname" required>
+                <label for="firstname">First name</label>
+                <input type="text" name="firstname" placeholder="First name" id="firstname" required>
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="E-mail" id="email" required>
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="Password" id="password" required>
+                <label for="ID">Guest's ID you would like to update</label>
+                <input type="number" name="ID" placeholder="ID" id="ID" required>
+                <input type="submit" value="Update Guest">
+            </form>
+        <% }%>
+        <%
+        if(partakes !== undefined){
+        %>
+        <h1>Partakes table</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>From</th>
+                <th>Until</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%
+                if(partakes.length > 0) {
+                    for(var k = 0; k < partakes.length; k++){
+                %>
+                <tr>
+                    <td><%=partakes[k]["ID"]%></td>
+                    <td><%=partakes[k]["type"]%></td>
+                    <td><%=partakes[k]["from"]%></td>
+                    <td><%=partakes[k]["until"]%></td>
+                    <td><form action="/deletePartakes" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delID" value=<%=partakes[k]["ID"]%>>
+                            <input type="hidden" name = "delType" value=<%=partakes[k]["type"]%>>
+                            <input type="hidden" name = "delFrom" value=<%=partakes[k]["from"]%>>
+                            <input type="hidden" name = "delUntil" value=<%=partakes[k]["until"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                    }else{ %>
+                <tr>
+                    <td colspan="5">No Data Found</td>
+                </tr>
+                <%} %>
+            </tbody>
+        </table>
+            <h2>Create Partakes</h2>
+            <form action="/createPartakes" method="post">
+                <label for="ID">ID</label>
+                <input type="number" name="ID" placeholder="ID" id="ID" required>
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type" id="type" required>
+                <label for="from">From</label>
+                <input type="date" name="from" placeholder="From date" id="from" required>
+                <label for="until">Until</label>
+                <input type="date" name="until" placeholder="Until date" id="until" required>
+                <input type="submit" value="Create Partakes">
+            </form>
+            <br>
+            <h2>Update Partakes</h2>
+            <form action="/updatePartakes" method="post">
+                <label for="prevID">Previous ID</label>
+                <input type="number" name="prevID" placeholder="Previous ID" id="prevID" required>
+                <label for="ID">ID</label>
+                <input type="number" name="ID" placeholder="ID" id="ID" required>
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type" id="type" required>
+                <label for="type">From</label>
+                <input type="date" name="from" placeholder="From date" id="from" required>
+                <label for="until">Until</label>
+                <input type="date" name="until" placeholder="Until date" id="until" required>
+                <input type="submit" value="Update Partakes">
+            </form>
+        <% }%>
+        <%
+        if(programs !== undefined){
+            %>
+        <h1>Programs table</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>From</th>
+                <th>Until</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%
+                    if(programs.length > 0) {
+                    for(var i = 0; i < programs.length; i++){
+                %>
+                <tr>
+                    <td><%=programs[i]["type"]%></td>
+                    <td><%=programs[i]["from"]%></td>
+                    <td><%=programs[i]["until"]%></td>
+                    <td><form action="/deleteProgram" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delType" value=<%=programs[i]["type"]%>>
+                            <input type="hidden" name = "delFrom" value=<%=programs[i]["from"]%>>
+                            <input type="hidden" name = "delUntil" value=<%=programs[i]["until"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                    }else{ %>
+                <tr>
+                    <td colspan="4">No Data Found</td>
+                </tr>
+                <%} %>
+            </tbody>
+        </table>
+            <h2>Create Program</h2>
+            <form action="/createProgram" method="post">
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type" id="type" required>
+                <label for="from">From</label>
+                <input type="date" name="from" placeholder="From date" id="from" required>
+                <label for="until">Until</label>
+                <input type="date" name="until" placeholder="Until date" id="until" required>
+                <input type="submit" value="Create Program">
+            </form>
+            <br>
+            <h2>Update Program</h2>
+            <form action="/updateProgram" method="post">
+                <label for="prevType">Previous Type</label>
+                <input type="text" name="prevType" placeholder="Previous Type" id="prevType" required>
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type" id="type" required>
+                <label for="from">From</label>
+                <input type="date" name="from" placeholder="From date" id="from" required>
+                <label for="until">Until</label>
+                <input type="date" name="until" placeholder="Until date" id="until" required>
+                <input type="submit" value="Update Program">
+            </form>
+        <% }%>
+        <%
+        if(reservations !== undefined){
+        %>
+            <h1>Reservations table</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>RoomNumber</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Online</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                if(reservations.length > 0) {
+                for(var l = 0; l < reservations.length; l++){
+                %>
+                <tr>
+                    <td><%=reservations[l]["roomNumber"]%></td>
+                    <td><%=reservations[l]["start"]%></td>
+                    <td><%=reservations[l]["end"]%></td>
+                    <td><%=reservations[l]["online"]%></td>
+                    <td><form action="/deleteReservation" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delRoomNumber" value=<%=reservations[l]["roomNumber"]%>>
+                            <input type="hidden" name = "delStart" value=<%=reservations[l]["start"]%>>
+                            <input type="hidden" name = "delEnd" value=<%=reservations[l]["end"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                }else{ %>
+                    <tr>
+                        <td colspan="5">No Data Found</td>
+                    </tr>
+                <%} %>
+                </tbody>
+            </table>
+            <h2>Create Reservation</h2>
+            <form action="/createReservation" method="post">
+                <label for="roomNumber">Room Number</label>
+                <input type="number" name="roomNumber" placeholder="Room number" id="roomNumber" required>
+                <label for="start">Start</label>
+                <input type="date" name="start" placeholder="Start date" id="start" required>
+                <label for="end">End</label>
+                <input type="date" name="end" placeholder="End date" id="end" required>
+                <label for="online">Online</label>
+                <input type="text" name="online" placeholder="Online (leave empty if the reservation wasn't online)" id="online">
+                <input type="submit" value="Create Reservation">
+            </form>
+            <br>
+            <h2>Update Reservation</h2>
+            <form action="/updateReservation" method="post">
+                <label for="prevRoomNumber">Previous Room Number</label>
+                <input type="number" name="prevRoomNumber" placeholder="Previous Room number" id="prevRoomNumber" required>
+                <label for="roomNumber">Room Number</label>
+                <input type="number" name="roomNumber" placeholder="Room number" id="roomNumber" required>
+                <label for="start">Start</label>
+                <input type="date" name="start" placeholder="Start date" id="start" required>
+                <label for="end">End</label>
+                <input type="date" name="end" placeholder="End date" id="end" required>
+                <label for="online">Online</label>
+                <input type="text" name="online" placeholder="Online (leave empty if the reservation wasn't online)" id="online">
+                <input type="submit" value="Update Reservation">
+            </form>
+        <% }%>
+        <%
+        if(rooms !== undefined){
+        %>
+            <h1>Rooms table</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>RoomNumber</th>
+                    <th>NumberOfPeople</th>
+                    <th>Balcony</th>
+                    <th>Bed size</th>
+                    <th>RoomType</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                if(rooms.length > 0) {
+                for(var m = 0; m < rooms.length; m++){
+                %>
+                <tr>
+                    <td><%=rooms[m]["roomNumber"]%></td>
+                    <td><%=rooms[m]["numberOfPeople"]%></td>
+                    <td><%=rooms[m]["balcony"]%></td>
+                    <td><%=rooms[m]["bedsize"]%></td>
+                    <td><%=rooms[m]["type"]%></td>
+                    <td><form action="/deleteRoom" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delRoomNumber" value=<%=rooms[m]["roomNumber"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                }else{ %>
+                    <tr>
+                        <td colspan="6">No Data Found</td>
+                    </tr>
+                <%} %>
+                </tbody>
+            </table>
+            <h2>Create Room</h2>
+            <form action="/createRoom" method="post">
+                <label for="roomNumber">Room Number</label>
+                <input type="number" name="roomNumber" placeholder="Room number" id="roomNumber" required>
+                <label for="numberOfPeople">Number Of People</label>
+                <input type="number" name="numberOfPeople" placeholder="Number of people" id="numberOfPeople" required>
+                <label for="balcony">Balcony</label>
+                <input type="text" name="balcony" placeholder="Balcony (leave empty if there is no balcony attached to the room" id="balcony">
+                <label for="bedsize">Bedsize</label>
+                <input type="number" name="bedsize" placeholder="Bed size" id="bedsize" required>
+                <label for="type">Room Type</label>
+                <input type="text" name="type" placeholder="Room Type" id="type" required>
+                <input type="submit" value="Create Room">
+            </form>
+            <br>
+            <h2>Update Room</h2>
+            <form action="/updateRoom" method="post">
+                <label for="numberOfPeople">Number Of People</label>
+                <input type="number" name="numberOfPeople" placeholder="Number of people" id="numberOfPeople" required>
+                <label for="balcony">Balcony</label>
+                <input type="text" name="balcony" placeholder="Balcony (leave empty if there is no balcony attached to the room" id="balcony">
+                <label for="bedsize">Bedsize</label>
+                <input type="number" name="bedsize" placeholder="Bed size" id="bedsize" required>
+                <label for="type">Room Type</label>
+                <input type="text" name="type" placeholder="Room Type" id="type" required>
+                <label for="roomNumber">Number of room you would like to update</label>
+                <input type="number" name="roomNumber" placeholder="Room number" id="roomNumber" required>
+                <input type="submit" value="Update Room">
+            </form>
+            <br>
+        <% }%>
+        <%
+        if(roomTypes !== undefined){
+        %>
+            <h1>RoomTypes table</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Bathroom</th>
+                    <th>AirConditioner</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                if(roomTypes.length > 0) {
+                for(var n = 0; n < roomTypes.length; n++){
+                %>
+                <tr>
+                    <td><%=roomTypes[n]["type"]%></td>
+                    <td><%=roomTypes[n]["bathroom"]%></td>
+                    <td><%=roomTypes[n]["airConditioner"]%></td>
+                    <td><form action="/deleteRoomType" method="post">
+                            <input type="submit" name="delete" value="Delete">
+                            <input type="hidden" name = "delType" value=<%=roomTypes[n]["type"]%>>
+                        </form></td>
+                </tr>
+                <%}
+                }else{ %>
+                    <tr>
+                        <td colspan="4">No Data Found</td>
+                    </tr>
+                <%} %>
+                </tbody>
+            </table>
+            <h2>Create RoomType</h2>
+            <form action="/createRoomType" method="post">
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type" id="type" required>
+                <label for="bathroom">Bathroom</label>
+                <input type="text" name="bathroom" placeholder="Bathroom" id="bathroom" required>
+                <label for="airConditioner">Air Conditioner</label>
+                <input type="text" name="airConditioner" placeholder="Air conditioner (leave empty if there is no air conditioner in the room" id="airConditioner">
+                <input type="submit" value="Create RoomType">
+            </form>
+            <br>
+            <h2>Update RoomType</h2>
+            <form action="/updateRoomType" method="post">
+                <label for="bathroom">Bathroom</label>
+                <input type="text" name="bathroom" placeholder="Bathroom" id="bathroom" required>
+                <label for="airConditioner">Air Conditioner</label>
+                <input type="text" name="airConditioner" placeholder="Air conditioner (leave empty if there is no air conditioner in the room" id="airConditioner">
+                <label for="type">Type</label>
+                <input type="text" name="type" placeholder="Type of the room you would like to update" id="type" required>
+                <input type="submit" value="Update RoomType">
+            </form>
+        <% }%>
+    </div>
+</div>
+<footer>
+    <em>For any business purposes please contact us at: rrhotel@gmail.rr</em>
+</footer>
+</body>
+</html>

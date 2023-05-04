@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Programs</title>
+    <link rel="stylesheet" href="../Css/General.css">
+    <link rel="icon" href="../Multimedia/logo.png" type="image/icon">
+</head>
+<body>
+<div class="General">
+    <div class="menu">
+        <h1 class="focim"><strong>RR Hotel</strong></h1>
+        <nav>
+            <div id="menusor">
+                <ul class="menulista">
+                    <li class="menuitem"><a href="/Main">Home</a></li>
+                    <li class="menuitem"><a href="/Programs">Programs</a></li>
+                    <li class="menuitem"><a href="/Reservations">Reservations</a></li>
+                    <li class="menuitem"><a href="/Profile">Profile</a></li>
+                </ul>
+            </div>
+        </nav>
+        <br/>
+    </div>
+    <div class="General">
+        <h2>Here you will see the diverse programs we have to offer</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>From</th>
+                <th>Until</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+            if(programs.length > 0) {
+            for(var i = 0; i < programs.length; i++){
+            %>
+            <tr>
+                <td><%=programs[i]["type"]%></td>
+                <td><%=programs[i]["from"]%></td>
+                <td><%=programs[i]["until"]%></td>
+            </tr>
+            <%}
+            }else{ %>
+                <tr>
+                    <td colspan="3">No Data Found</td>
+                </tr>
+            <%} %>
+            </tbody>
+        </table>
+        <h2>The current sum of time spent on each of our programs</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Sum Of Days</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+            if(daysums.length > 0) {
+            for(var j= 0; j < daysums.length; j++){
+            %>
+            <tr>
+                <td><%=daysums[j]["type"]%></td>
+                <td><%=daysums[j]["sumOfDays"]%></td>
+            </tr>
+            <%}
+            }else{ %>
+                <tr>
+                    <td colspan="2">No Data Found</td>
+                </tr>
+            <%} %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer>
+    <em>For any business purposes please contact us at: rrhotel@gmail.rr</em>
+</footer>
+</body>
+</html>

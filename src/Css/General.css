@@ -1,0 +1,96 @@
+body{
+    font-family: Snell Roundhand, cursive;
+    font-size: 15px;
+    text-align: justify;
+    background-image: url("../Multimedia/background.jpg");
+}
+p{
+    position: static;
+    font-size: 20px;
+    padding: 20px;
+}
+p::first-letter{
+    font-weight: bold;
+}
+
+div[class="General"]{
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 40px;
+    color: white;
+    background-color: #844D36;
+}
+.focim{
+    padding-top: 0 !important;
+    font-size: 60px;
+    text-align: center;
+    color: white;
+}
+.menu{
+    z-index: 2;
+    font-size: 30px;
+    position: sticky;
+    top: 0;
+    background-color: #474853;
+    border-radius: 40px;
+    border: solid;
+}
+#menusor{width:52%; margin: 0 auto;}
+
+ul[class="menulista"]{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #8E8268;
+}
+
+li[class="menuitem"] {
+    float: left;
+}
+
+li[class="menuitem"] a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li[class="menuitem"] a:hover {
+    background-color: #111;
+}
+.forms{
+    background-color: #9E9E9E;
+}
+a:active{
+    background-color: white !important;
+    color: black !important;
+}
+a:hover{
+    background-color: white !important;
+    color: black !important;
+}
+@media only screen and (max-width: 952px) {
+    img{
+        float: none;
+        display: block;
+        margin: 0 auto;
+    }
+}
+.videok{
+    z-index: 1;
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+.kozvetlen{
+    border: 5px solid white;
+}
+footer{
+    background-color: #474853;
+    color: white;
+    font-size: 15px;
+    float: right;
+    width: 20%;
+}
