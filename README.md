@@ -72,17 +72,6 @@ Before running the app make sure to edit the `password` field under connection i
 node src/index.js
 ```
 
-```
-Szalloda/
-├── public/             # Static files
-├── routes/             # Route handlers
-├── views/              # EJS templates
-├── config.js           # Configuration file
-├── app.js              # Main application file
-├── package.json        # Project metadata and dependencies
-└── README.md           # Project documentation
-```
-
 ## Usage
 
 - Access the application in your web browser at `http://localhost:8080`.
